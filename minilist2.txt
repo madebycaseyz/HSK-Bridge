@@ -1,0 +1,11 @@
+No.	Word	Pinyin	Part of Speech	Translation
+1	啊	a	auxiliary	ah, oh
+2	爱好	àihào	verb、noun	to like; hobby
+3	白色	báisè	noun	white
+4	班	bān	noun、（classifier）	class, team; (measure word for groups)
+5	帮	bāng	verb	to help
+6	帮忙	bāngmáng	verb	to help
+7	包	bāo	verb、noun、classifier	to wrap, to pack; bag; measure word for bundles
+8	本子	běnzi	noun	notebook
+9	比	bǐ	verb、preposition	to compare; than
+10	笔	bǐ	noun、（classifier）	pen; (measure word for writing tools)

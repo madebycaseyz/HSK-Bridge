@@ -1,0 +1,11 @@
+No.	Word	Pinyin	Part of Speech	Translation
+1	爱	ài	verb	to love
+2	八	bā	number	eight
+3	爸爸	bàba	noun	dad
+4	吧	ba	auxiliary	particle indicating suggestion, confirmation, or hesitation
+5	白天	báitiān	noun	daytime
+6	百	bǎi	number	hundred
+7	半	bàn	number、（adverb）	half; (half, semi-)
+8	包子	bāozi	noun	steamed stuffed bun
+9	杯子	bēizi	noun	cup, glass
+10	本	běn	classifier	measure word for books
