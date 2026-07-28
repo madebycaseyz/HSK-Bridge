@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=LXGW+WenKai:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap');
+/* CJK Kaiti slices — Google Fonts LXGW often only paints Latin on iPhone */
+@import url('https://cdn.jsdelivr.net/npm/@hanzi.pro/webfonts-lxgw-wenkai@0.1.0/swap.css');
 
 :root {
   --ink: #14221f;
@@ -14,7 +16,7 @@
   --review: #b54a32;
   --shadow: 0 18px 40px rgba(20, 34, 31, 0.1);
   --radius: 18px;
-  /* Kaiti-style for brand, titles, numbers, and Chinese characters */
+  /* Webfont first: iOS has no system Kaiti, so Heiti was winning for Chinese */
   --font-brand: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', '楷体', serif;
   --font-ui: 'Figtree', sans-serif;
   --font-hanzi: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', '楷体', serif;
@@ -308,7 +310,7 @@ button:disabled {
 .hanzi {
   font-family: var(--font-hanzi);
   font-size: clamp(3.5rem, 14vw, 5.5rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
   color: var(--ink);
 }
@@ -437,10 +439,6 @@ button:disabled {
 }
 
 @media (max-width: 420px) {
-  .rate-row {
-    grid-template-columns: 1fr;
-  }
-
   .flashcard,
   .flashcard-face {
     min-height: 240px;
