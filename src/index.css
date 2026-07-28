@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap');
-/* CJK Kaiti slices — Google Fonts LXGW often only paints Latin on iPhone */
-@import url('https://cdn.jsdelivr.net/npm/@hanzi.pro/webfonts-lxgw-wenkai@0.1.0/swap.css');
 
 :root {
   --ink: #14221f;
