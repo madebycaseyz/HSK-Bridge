@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&family=Syne:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=LXGW+WenKai:wght@400;700&display=swap');
 
 :root {
   --ink: #14221f;
@@ -14,9 +14,10 @@
   --review: #b54a32;
   --shadow: 0 18px 40px rgba(20, 34, 31, 0.1);
   --radius: 18px;
-  --font-brand: 'Syne', sans-serif;
+  /* Kaiti-style for brand, titles, numbers, and Chinese characters */
+  --font-brand: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', '楷体', serif;
   --font-ui: 'Figtree', sans-serif;
-  --font-hanzi: 'Noto Serif SC', 'Songti SC', serif;
+  --font-hanzi: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', '楷体', serif;
 }
 
 *,
