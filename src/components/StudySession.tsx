@@ -7,9 +7,11 @@ type StudySessionProps = {
   deck: DeckKind
   words: Word[]
   index: number
+  complete: boolean
   onBack: () => void
   onFlipNavigate: (delta: number) => void
   onRate: (rating: Rating) => void
+  onRestart: () => void
 }
 
 const deckTitles: Record<DeckKind, string> = {
@@ -27,9 +29,11 @@ export function StudySession({
   deck,
   words,
   index,
+  complete,
   onBack,
   onFlipNavigate,
   onRate,
+  onRestart,
 }: StudySessionProps) {
   const [flipped, setFlipped] = useState(false)
   const word = words[index]
@@ -38,6 +42,30 @@ export function StudySession({
   useEffect(() => {
     setFlipped(false)
   }, [word?.id, index])
+
+  if (complete) {
+    return (
+      <div className="page">
+        <button type="button" className="text-back" onClick={onBack}>
+          ← Decks
+        </button>
+        <div className="empty-state">
+          <h1 className="brand">Deck complete</h1>
+          <p className="lede">
+            You’ve reached the end of {deckTitles[deck].toLowerCase()} for HSK {levelLabel}.
+          </p>
+          <div className="done-actions">
+            <button type="button" className="rate-btn know" onClick={onRestart}>
+              Start from beginning
+            </button>
+            <button type="button" className="secondary-btn" onClick={onBack}>
+              Back to decks
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (words.length === 0 || !word) {
     return (
@@ -58,6 +86,7 @@ export function StudySession({
   }
 
   const meaningText = word.meaning.trim() ? word.meaning : '—'
+  const atEnd = index >= words.length - 1
 
   return (
     <div className="page study">
@@ -104,7 +133,7 @@ export function StudySession({
             type="button"
             className="nav-btn"
             onClick={() => onFlipNavigate(1)}
-            disabled={index >= words.length - 1}
+            disabled={atEnd}
             aria-label="Next card"
           >
             →
@@ -112,10 +141,24 @@ export function StudySession({
         </div>
 
         <div className="rate-row">
-          <button type="button" className="rate-btn review" onClick={() => onRate('review')}>
+          <button
+            type="button"
+            className="rate-btn review"
+            onClick={(e) => {
+              e.stopPropagation()
+              onRate('review')
+            }}
+          >
             Review again
           </button>
-          <button type="button" className="rate-btn know" onClick={() => onRate('know')}>
+          <button
+            type="button"
+            className="rate-btn know"
+            onClick={(e) => {
+              e.stopPropagation()
+              onRate('know')
+            }}
+          >
             I know it well
           </button>
         </div>

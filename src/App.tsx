@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getAvailableLevels, getWordsForLevel } from './data/words'
+import {
+  getAvailableLevels,
+  getWordsForLevel,
+  loadVocabulary,
+} from './data/words'
 import {
   applyRating,
   clampIndex,
@@ -25,51 +29,116 @@ type Screen =
   | { name: 'study'; level: number; deck: DeckKind }
 
 export default function App() {
+  const [ready, setReady] = useState(false)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [screen, setScreen] = useState<Screen>({ name: 'levels' })
   const [store, setStore] = useState(() => loadProgressStore())
+  const [deckComplete, setDeckComplete] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    loadVocabulary()
+      .then(() => {
+        if (!cancelled) setReady(true)
+      })
+      .catch(() => {
+        if (!cancelled) setLoadError('Could not load vocabulary. Refresh and try again.')
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     saveProgressStore(store)
   }, [store])
 
-  const levels = getAvailableLevels()
+  useEffect(() => {
+    setDeckComplete(false)
+  }, [screen])
 
-  const handleRate = useCallback(
-    (level: number, deck: DeckKind, index: number, rating: Rating) => {
+  const handleRate = useCallback((level: number, deck: DeckKind, index: number, rating: Rating) => {
+    setStore((prev) => {
+      const progress = getLevelProgress(prev, level)
+      const mainWords = getWordsForLevel(level)
+      const deckWords = getDeckWords(mainWords, progress, deck)
+      const word = deckWords[index]
+      if (!word) return prev
+
+      let next = applyRating(progress, word.id, rating)
+      const nextDeckWords = getDeckWords(mainWords, next, deck)
+      let finished = false
+
+      if (deck === 'main') {
+        if (index >= mainWords.length - 1) {
+          finished = true
+          next = withDeckIndex(next, 'main', index)
+        } else {
+          next = withDeckIndex(next, 'main', index + 1)
+        }
+      } else if (nextDeckWords.length === 0) {
+        finished = true
+        next = withDeckIndex(next, deck, 0)
+      } else {
+        const stillInDeck = nextDeckWords.some((w) => w.id === word.id)
+        if (stillInDeck) {
+          const pos = nextDeckWords.findIndex((w) => w.id === word.id)
+          if (pos >= nextDeckWords.length - 1) {
+            finished = true
+            next = withDeckIndex(next, deck, pos)
+          } else {
+            next = withDeckIndex(next, deck, pos + 1)
+          }
+        } else if (index >= nextDeckWords.length) {
+          finished = true
+          next = withDeckIndex(next, deck, nextDeckWords.length - 1)
+        } else {
+          next = withDeckIndex(next, deck, index)
+        }
+      }
+
+      queueMicrotask(() => {
+        if (finished) setDeckComplete(true)
+      })
+
+      return setLevelProgress(prev, level, next)
+    })
+  }, [])
+
+  const persistIndex = useCallback(
+    (level: number, deck: DeckKind, nextIndex: number) => {
+      setDeckComplete(false)
       setStore((prev) => {
         const progress = getLevelProgress(prev, level)
-        const mainWords = getWordsForLevel(level)
-        const deckWords = getDeckWords(mainWords, progress, deck)
-        const word = deckWords[index]
-        if (!word) return prev
-
-        let next = applyRating(progress, word.id, rating)
-        const nextDeckWords = getDeckWords(mainWords, next, deck)
-
-        if (deck === 'main') {
-          const advanced = Math.min(index + 1, Math.max(mainWords.length - 1, 0))
-          next = withDeckIndex(next, 'main', advanced)
-        } else if (nextDeckWords.length === 0) {
-          next = withDeckIndex(next, deck, 0)
-        } else if (rating === (deck === 'know' ? 'know' : 'review')) {
-          const advanced = Math.min(index + 1, nextDeckWords.length - 1)
-          next = withDeckIndex(next, deck, advanced)
-        } else {
-          next = withDeckIndex(next, deck, clampIndex(index, nextDeckWords.length))
-        }
-
-        return setLevelProgress(prev, level, next)
+        return setLevelProgress(prev, level, withDeckIndex(progress, deck, nextIndex))
       })
     },
     [],
   )
 
-  const persistIndex = useCallback((level: number, deck: DeckKind, nextIndex: number) => {
-    setStore((prev) => {
-      const progress = getLevelProgress(prev, level)
-      return setLevelProgress(prev, level, withDeckIndex(progress, deck, nextIndex))
-    })
-  }, [])
+  if (loadError) {
+    return (
+      <div className="page boot">
+        <h1 className="brand">HSK Bridge</h1>
+        <p className="lede">{loadError}</p>
+      </div>
+    )
+  }
+
+  if (!ready) {
+    return (
+      <div className="page boot" aria-busy="true">
+        <p className="eyebrow">HSK prep</p>
+        <h1 className="brand">HSK Bridge</h1>
+        <p className="lede">Loading vocabulary…</p>
+        <div className="boot-bar" aria-hidden="true">
+          <span className="boot-bar-fill" />
+        </div>
+      </div>
+    )
+  }
+
+  const levels = getAvailableLevels()
 
   if (screen.name === 'levels') {
     return (
@@ -107,12 +176,17 @@ export default function App() {
       deck={screen.deck}
       words={deckWords}
       index={index}
+      complete={deckComplete}
       onBack={() => setScreen({ name: 'decks', level: screen.level })}
       onFlipNavigate={(delta) => {
         if (deckWords.length === 0) return
         persistIndex(screen.level, screen.deck, clampIndex(index + delta, deckWords.length))
       }}
       onRate={(rating) => handleRate(screen.level, screen.deck, index, rating)}
+      onRestart={() => {
+        setDeckComplete(false)
+        persistIndex(screen.level, screen.deck, 0)
+      }}
     />
   )
 }
