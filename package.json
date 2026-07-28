@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "extract-vocab": "python3 scripts/extract_vocab.py",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && touch dist/.nojekyll && gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "react": "^19.2.7",
