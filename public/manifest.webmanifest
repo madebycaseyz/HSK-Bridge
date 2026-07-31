@@ -1,6 +1,6 @@
 {
-  "name": "HSK Bridge",
-  "short_name": "HSK Bridge",
+  "name": "HSK Deck",
+  "short_name": "HSK Deck",
   "description": "Local-first HSK flashcards for New HSK levels 1–9.",
   "start_url": "./",
   "display": "standalone",

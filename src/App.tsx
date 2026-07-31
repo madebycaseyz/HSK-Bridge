@@ -119,7 +119,7 @@ export default function App() {
   if (loadError) {
     return (
       <div className="page boot">
-        <h1 className="brand">HSK Bridge</h1>
+        <h1 className="brand">HSK Deck</h1>
         <p className="lede">{loadError}</p>
       </div>
     )
@@ -129,7 +129,7 @@ export default function App() {
     return (
       <div className="page boot" aria-busy="true">
         <p className="eyebrow">HSK prep</p>
-        <h1 className="brand">HSK Bridge</h1>
+        <h1 className="brand">HSK Deck</h1>
         <p className="lede">Loading vocabulary…</p>
         <div className="boot-bar" aria-hidden="true">
           <span className="boot-bar-fill" />

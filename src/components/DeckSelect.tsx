@@ -35,7 +35,7 @@ export function DeckSelect({
       </button>
 
       <header className="hero compact">
-        <p className="eyebrow">HSK Bridge</p>
+        <p className="eyebrow">HSK Deck</p>
         <h1 className="brand">Level {label}</h1>
         <p className="lede">Choose a deck to study.</p>
       </header>

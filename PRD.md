@@ -1,4 +1,4 @@
-# HSK Bridge — Product Requirements
+# HSK Deck — Product Requirements
 
 ## Objective
 

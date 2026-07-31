@@ -14,7 +14,7 @@ export function LevelSelect({ levels, onSelect }: LevelSelectProps) {
     <div className="page">
       <header className="hero">
         <p className="eyebrow">HSK prep</p>
-        <h1 className="brand">HSK Bridge</h1>
+        <h1 className="brand">HSK Deck</h1>
         <p className="lede">Flashcards for every level — pick up where you left off.</p>
       </header>
 
