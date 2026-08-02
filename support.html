@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Support and feedback for HSK Deck." />
+    <title>HSK Deck — Support</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14221f;
+        --ink-muted: #4a5c57;
+        --teal: #1f6f64;
+        --teal-deep: #145249;
+        --paper: #eef3f0;
+        --paper-2: #dfeae4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        color: var(--ink);
+        font-family: Figtree, system-ui, sans-serif;
+        background:
+          radial-gradient(ellipse 80% 50% at 10% -10%, rgba(31, 111, 100, 0.18), transparent 55%),
+          radial-gradient(ellipse 70% 45% at 100% 0%, rgba(181, 74, 50, 0.1), transparent 50%),
+          linear-gradient(165deg, #f4f8f6 0%, var(--paper) 45%, var(--paper-2) 100%);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main {
+        max-width: 34rem;
+        margin: 0 auto;
+        padding: 4.5rem 1.5rem 3rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.5rem;
+        color: var(--teal);
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(2rem, 6vw, 2.6rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--teal-deep);
+      }
+
+      p {
+        margin: 0 0 1.1rem;
+        color: var(--ink-muted);
+        font-size: 1.05rem;
+        line-height: 1.55;
+      }
+
+      .card {
+        margin-top: 1.75rem;
+        padding: 1.35rem 1.4rem;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(20, 34, 31, 0.1);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(20, 34, 31, 0.08);
+      }
+
+      .card h2 {
+        margin: 0 0 0.55rem;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      a {
+        color: var(--teal);
+        font-weight: 600;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 0.15em;
+      }
+
+      a:hover {
+        color: var(--teal-deep);
+      }
+
+      .email {
+        display: inline-block;
+        margin-top: 0.35rem;
+        font-size: 1.15rem;
+        word-break: break-word;
+      }
+
+      .back {
+        display: inline-block;
+        margin-top: 2rem;
+        color: var(--ink-muted);
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .back:hover {
+        color: var(--teal-deep);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">HSK Deck</p>
+      <h1>Support</h1>
+      <p>
+        Questions, feedback, or something not working right? I’d love to hear from
+        you.
+      </p>
+
+      <section class="card" aria-labelledby="email-heading">
+        <h2 id="email-heading">Send a message</h2>
+        <p>
+          Email
+          <a class="email" href="mailto:madebycaseyz@gmail.com">madebycaseyz@gmail.com</a>
+          and I’ll get back to you as soon as I can.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="bugs-heading">
+        <h2 id="bugs-heading">Report a bug</h2>
+        <p>
+          You can also open an issue on
+          <a href="https://github.com/madebycaseyz/HSK-Deck/issues">GitHub</a>
+          if that’s easier.
+        </p>
+      </section>
+
+      <a class="back" href="./">← Back to HSK Deck</a>
+    </main>
+  </body>
+</html>
